@@ -1,9 +1,11 @@
 # QSM-Cutoff
 ## Installation
+
+Clone repository
 ```
-git clone --recurse-submodules git@github.com:QSM-Cutoff/QSM-Cutoff.git
+git clone --recurse-submodules git@github.com:Superdude11235/QSM-Cutoff-Jonah.git
 ```
-1. Set up python environment (recommend python3.12 and above)
+Set up python environment (recommend python3.12 and above)
 ```
 python3 -m pip install python-sat[aiger,approxmc,cryptosat,pblib]
 python3 -m pip install python-sat
@@ -16,43 +18,53 @@ python3 -m pip install itertools
 python3 -m pip install numpy
 ```
 
-2. Install swig
+Install the PCRE2 development package
+
+```
+sudo apt update
+sudo apt install libpcre2-dev
+```
+
+Install swig
 - Install `autotools-dev`, `automake`, `bison`.
 ```
 cd swig-4.2.1
 ./autogen.sh
-./configure --prefix=YOUR_PATH
+./configure --prefix=$HOME/swig-install
 make
 make install
+cd ..
 ```
 
-3. Install repycudd
+Install repycudd
 ```
 cd repycudd
 cd cudd-2.4.2
 make
 make libso
-cd..
+cd ..
 ```
 - Change the python version in repycudd Makefile,Makefile_64bit to your version of python3.1X and add the compilation flag `-I[PATH TO Python.h]`
 ```
 make
-export PYTHONPATH=$PYTHONPATH:[path to repycudd.py]
+export PYTHONPATH=$PYTHONPATH:$(pwd)
 ```
 
-4. Install ivy
+Install ivy
 ```
 cd ivy
 python3 build_submodules.py
-python3 setup.py install
-python3 setup.py develop
+sudo python3 setup.py install
+sudo python3 setup.py develop
+cd ..
 ```
 
-5. Install MARCO
+Install MARCO
 ```
 cd MARCO/src/pyminisolvers
 make
 make test
+cd ../../..
 ```
 
 ## Usage
