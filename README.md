@@ -30,7 +30,7 @@ Install swig
 ```
 cd swig-4.2.1
 ./autogen.sh
-./configure --prefix=$HOME/swig-install
+./configure
 make
 make install
 cd ..
