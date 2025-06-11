@@ -31,8 +31,8 @@ Install swig
 cd swig-4.2.1
 ./autogen.sh
 ./configure
-make
-make install
+sudo make
+sudo make install
 cd ..
 ```
 
