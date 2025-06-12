@@ -5,6 +5,27 @@ Clone repository
 ```
 git clone --recurse-submodules git@github.com:Superdude11235/QSM-Cutoff-Jonah.git
 ```
+OPTIONAL: Set up a virtual environment for python3.12 (may be necessary if using WSL)
+
+```
+# 1. Update package lists
+sudo apt-get update
+
+# 2. Install Python 3.12, venv module, and development headers
+sudo apt-get install python3.12 python3.12-venv python3.12-dev
+
+# 3. Create a new virtual environment using Python 3.12
+python3.12 -m venv .venv
+
+# 4. Activate the virtual environment
+source .venv/bin/activate
+
+# 5. (Optional) Verify Python version and header location
+python --version
+python -c "from sysconfig import get_paths; print(get_paths()['include'])"
+ls $(python -c "from sysconfig import get_paths; print(get_paths()['include'])")/Python.h
+```
+
 Set up python environment (recommend python3.12 and above)
 ```
 python3 -m pip install python-sat[aiger,approxmc,cryptosat,pblib]
@@ -31,8 +52,7 @@ Install swig
 cd swig-4.2.1
 ./autogen.sh
 ./configure
-sudo make
-sudo make install
+pip install -e .
 cd ..
 ```
 
