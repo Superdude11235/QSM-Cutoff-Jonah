@@ -31,8 +31,8 @@ class FiniteIvyAccessAction():
         self.return_type = return_type
 
         self._symbol_name      = str(symbol)
-        self._action_name      = f'get_{str(symbol).replace('.', '__')}'
-        self._bool_action_name = f'get_bool_{str(symbol).replace('.', '__')}'
+        self._action_name      = f'get_{str(symbol).replace(".", "__")}'
+        self._bool_action_name = f'get_bool_{str(symbol).replace(".", "__")}'
         self._params_signature = [f'{ptype.name[0]}{pid}: {ptype.name}' for pid, ptype in enumerate(param_types)]
         self._params_list      = [f'{ptype.name[0]}{pid}' for pid, ptype in enumerate(param_types)]
         self._return_type_str  = 'bool' if il.is_boolean_sort(return_type) else return_type.name
@@ -41,7 +41,7 @@ class FiniteIvyAccessAction():
     def _get_action_header(self):
         line  = f'action {self._action_name}'
         if len(self.param_types):
-            line += f'({', '.join(self._params_signature)})'
+          line += f'({", ".join(self._params_signature)})'
         line += f' returns(qrm_result: {self._return_type_str}) = ' 
         line += '{\n'
         return line
@@ -49,7 +49,7 @@ class FiniteIvyAccessAction():
     def _get_bool_action_header(self):
         line  = f'action {self._bool_action_name}'
         bool_params_signature = self._params_signature + [self._return_signature]
-        line += f'({', '.join(bool_params_signature)})'
+        line += f"({', '.join(bool_params_signature)})"
         line += f' returns(qrm_result: bool) = ' 
         line += '{\n'
         return line
@@ -58,7 +58,7 @@ class FiniteIvyAccessAction():
         line = '    qrm_result := '
         line += f'{self._symbol_name}'
         if len(self.param_types):
-            line += f'({', '.join(self._params_list)})'
+             line += f"({', '.join(self._params_list)})"
         line += '\n'
         return line
 
@@ -66,7 +66,7 @@ class FiniteIvyAccessAction():
         line = '    qrm_result := ('
         line += f'{self._symbol_name}'
         if len(self.param_types):
-            line += f'({', '.join(self._params_list)})'
+            line += f"({', '.join(self._params_list)})"
         line += ' = result)\n'
         return line
 

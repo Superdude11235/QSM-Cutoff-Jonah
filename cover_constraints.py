@@ -228,11 +228,12 @@ class CoverConstraints():
         clause_num = len(self.root_assume_clauses) + len(self.root_tseitin_clauses) + len(self.clauses) 
         fout.write(f'p cnf {self.root_top_var} {clause_num}'+'\n')
         for clause in self.root_assume_clauses:
-            fout.write(f'{' '.join([str(lit) for lit in clause])} 0' + '\n')
+            fout.write(f"{' '.join(str(lit) for lit in clause)} 0\n")
         for clause in self.root_tseitin_clauses:
-            fout.write(f'{' '.join([str(lit) for lit in clause])} 0' + '\n')
+            fout.write(f"{' '.join(str(lit) for lit in clause)} 0\n")
         for clause in self.clauses:
-            fout.write(f'{' '.join([str(lit) for lit in clause])} 0' + '\n')
+            fout.write(f"{' '.join(str(lit) for lit in clause)} 0\n")
+
         fout.close()
 
     def _init_solvers(self, orbits : List[PrimeOrbit]) -> None:

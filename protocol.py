@@ -187,7 +187,9 @@ class Protocol():
     def init_representative_states(self, repr_states : List[int]) -> None:
         self.repr_states = set(repr_states)
         if self.options.writeReach or self.options.verbosity > 3:
-            self.header.append(f'representative states : {', '.join([str(s) for s in repr_states])}')
+            joined_states = ', '.join(str(s) for s in repr_states)
+            self.header.append(f'representative states : {joined_states}')
+
 
     def init_sorts_permutations(self, tran_sys : TransitionSystem) -> None:
         all_sorts_permutations = []

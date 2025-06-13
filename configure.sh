@@ -1,6 +1,10 @@
+### Dynamically configure python3 include path in util.py
+
 ### Configure python3 include path in util.py
 
-python_include_path=$1
+python_include_path=$(python3 -c "from sysconfig import get_paths; print(get_paths()['include'])")
+
+echo $python_include_path
 
 echo "1. Checking if Python.h exists ...."
 if ! ls "${python_include_path}/Python.h" > /dev/null 2>&1; then
