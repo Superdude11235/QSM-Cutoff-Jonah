@@ -69,7 +69,7 @@ def get_options(ivy_name, args, sys_args) -> QrmOptions:
 
 def synthesize_Rmin_and_ivy_check(options : QrmOptions, sys_args) -> bool:
     vprint_instance_banner(options, f'[Synthesize Rmin]: [{options.ivy_filename}: {options.size_str}]', 0)
-    qrm_args    = ['python3', 'qrm.py', options.ivy_filename, '-s', options.size_str, '-f', '1', '-g', '-w', '-r'] + sys_args
+    qrm_args    = ['python3', 'qrm.py', options.ivy_filename, '-s', options.size_str, '-f', '1', '-g', '-w'] + sys_args
     rmin_result = True 
     try:
         vprint(options, ' '.join(qrm_args))
@@ -126,7 +126,7 @@ def reachability_convergence_check(sol_id, options : QrmOptions, sys_args, incre
             options.append_log_if_exists()
         except subprocess.CalledProcessError as error:
             options.append_log_if_exists()
-            if error.stderr == 'QrmFail':
+            if "QrmFail" in error.stderr:
                 try_result = False
             else:
                 vprint(options, error.stderr)
