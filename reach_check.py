@@ -244,6 +244,8 @@ class ReachCheck():
         (result, values)  = self._get_model()
         model_repr_states = set()
         model_match = True
+        vprint(self.options, f'State atoms: {self.protocol.state_atoms}')
+        vprint(self.options, 'Printing every representative state in Rmin:')
         while result:
             repr_int = int(''.join(values), 2)
             for nvalues in self.protocol.all_permutations(values[:self.protocol.state_atom_num]): # only permute the mutable part
@@ -257,13 +259,24 @@ class ReachCheck():
                 if self.options.early_terminate_reach:
                     vprint(self.options, f'[REACH_CHECK RESULT]: FAIL')
                     return model_match
+            #Print every state (added by Jonah)
+            bit_str = '{0:0{1}b}'.format(repr_int, self.protocol.atom_num)[:self.protocol.state_atom_num]
+            vprint(self.options, f'State: decimal: {repr_int}, binary: {bit_str}')
             model_repr_states.add(repr_int)
             (result, values) = self._get_model()
 
         difference = self.protocol.repr_states - model_repr_states
         if len(difference) > 0:
             vprint(self.options, 'Representatitive states in reachability not in Rmin')
+            vprint(self.options, "Decimal")
             vprint(self.options, f'{difference}')
+            #Binary (Jonah)
+            vprint(self.options, "Binary")
+            binary_difference = {
+            '{0:0{1}b}'.format(num, self.protocol.atom_num)[:self.protocol.state_atom_num]
+            for num in difference
+            } 
+            vprint(self.options, f'{binary_difference}')
             model_match = False
         if model_match:
             vprint(self.options, f'[REACH_CHECK RESULT]: PASS')
